@@ -1,0 +1,57 @@
+services:
+  nginx:
+    build:
+      context: ./Dockerfiles/nginx
+      dockerfile: Dockerfile
+
+    ports:
+      - "80:80"
+
+    volumes:
+      - ./Application:/var/www/laravel
+
+    depends_on:
+      - mysql
+
+  php:
+    build:
+      context: ./Dockerfiles/php
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./Application:/var/www/laravel
+
+  composer:
+    build:
+      context: ./Dockerfiles/composer
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./Application:/var/www/laravel
+
+    working_dir: /var/www/laravel
+
+    depends_on:
+      - php
+
+  artisan:
+    build:
+      context: ./Dockerfiles/php
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./Application:/var/www/laravel
+
+    working_dir: /var/www/laravel
+
+    entrypoint: [ "php", "/var/www/laravel/artisan" ]
+
+  mysql:
+    image: mysql:8.3.0
+
+    ports:
+      - "3306:3306"
+
+    environment:
+      MYSQL_DATABASE: eastside-db
+      MYSQL_ROOT_PASSWORD: docker
