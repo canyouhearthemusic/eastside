@@ -9,7 +9,7 @@ use App\Modules\User\DTOs\RegisterUserDTO;
 
 interface AuthService
 {
-    public function register(RegisterUserDTO $DTO);
+    public function register(RegisterUserDTO $dto);
 
-    public function login(LoginUserDTO $DTO);
+    public function login(LoginUserDTO $dto);
 }

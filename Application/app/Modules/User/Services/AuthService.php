@@ -16,22 +16,22 @@ final readonly class AuthService implements AuthServiceContract
     {
     }
 
-    public function register(RegisterUserDTO $DTO): string
+    public function register(RegisterUserDTO $dto): string
     {
         $user = User::query()->create([
-            'name'     => $DTO->name,
-            'email'    => $DTO->email,
-            'password' => $DTO->password,
+            'name'     => $dto->name,
+            'email'    => $dto->email,
+            'password' => $dto->password,
         ]);
 
         return $this->jwtAuth->fromUser($user);
     }
 
-    public function login(LoginUserDTO $DTO): string
+    public function login(LoginUserDTO $dto): string
     {
         $credentials = [
-            'email'    => $DTO->email,
-            'password' => $DTO->password,
+            'email'    => $dto->email,
+            'password' => $dto->password,
         ];
 
         if (!$token = $this->jwtAuth->attempt($credentials)) {

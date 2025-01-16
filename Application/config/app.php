@@ -199,6 +199,7 @@ return [
          * Modules...
          */
         \App\Modules\User\Providers\RegisterModuleServiceProvider::class,
+        \App\Modules\Post\Providers\RegisterModuleServiceProvider::class,
     ],
 
     /*
