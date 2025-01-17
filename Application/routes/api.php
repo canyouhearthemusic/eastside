@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('auth')
-    ->name('auth.')
     ->controller(AuthController::class)
     ->group(function () {
         Route::post('/register', [AuthController::class, 'register']);
@@ -26,13 +25,13 @@ Route::prefix('auth')
     });
 
 Route::prefix('posts')
-    ->name('posts.')
     ->controller(PostController::class)
+    ->middleware(['auth:api'])
     ->group(function () {
         Route::get('/', [PostController::class, 'index']);
         Route::post('/', [PostController::class, 'store']);
         Route::get('/{id}', [PostController::class, 'show']);
-        Route::put('/{id}', [PostController::class, 'update']);
+        Route::post('/{id}', [PostController::class, 'update']);
         Route::delete('/{id}', [PostController::class, 'destroy']);
     });
 

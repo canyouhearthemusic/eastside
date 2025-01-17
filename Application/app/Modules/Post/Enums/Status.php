@@ -6,8 +6,8 @@ namespace App\Modules\Post\Enums;
 
 enum Status: int
 {
-    case INACTIVE = 0;
     case ACTIVE   = 1;
+    case INACTIVE = 2;
 
     public static function values(): array
     {
@@ -17,13 +17,13 @@ enum Status: int
     public function label(): array
     {
         return match ($this) {
-            self::INACTIVE => [
-                'id'   => self::INACTIVE->value,
-                'name' => 'Inactive',
-            ],
             self::ACTIVE   => [
                 'id'   => self::ACTIVE->value,
                 'name' => 'Active',
+            ],
+            self::INACTIVE => [
+                'id'   => self::INACTIVE->value,
+                'name' => 'Inactive',
             ],
         };
     }

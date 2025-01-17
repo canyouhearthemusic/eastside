@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03cd8de9-b84c-4815-a750-a58ff9c2cb39" name="Changes" comment="Post module created, but only index endpoint">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Application/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Contracts/Services/PostService.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Contracts/Services/PostService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Controllers/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Models/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Models/Tag.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Models/Tag.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Services/PostService.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Services/PostService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/app/Modules/User/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/User/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/Application/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Application/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/database/factories/UserFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/routes/api.php" afterDir="false" />
-    </list>
+    <list default="true" id="03cd8de9-b84c-4815-a750-a58ff9c2cb39" name="Changes" comment="added store endpoint for Post controller, compressing to 128kbps, Tags, Factories and Seeders" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -347,7 +332,7 @@
       <workItem from="1736969901361" duration="3635000" />
       <workItem from="1737004002659" duration="1295000" />
       <workItem from="1737048756289" duration="16488000" />
-      <workItem from="1737091339520" duration="4228000" />
+      <workItem from="1737091339520" duration="4406000" />
     </task>
     <task id="LOCAL-00001" summary="init + docker">
       <option name="closed" value="true" />
@@ -373,7 +358,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737063792332</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added store endpoint for Post controller, compressing to 128kbps, Tags, Factories and Seeders">
+      <option name="closed" value="true" />
+      <created>1737095753357</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1737095753357</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,6 +376,7 @@
     <MESSAGE value="init + docker" />
     <MESSAGE value="JWT Authentication, modular + clean architecture" />
     <MESSAGE value="Post module created, but only index endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="Post module created, but only index endpoint" />
+    <MESSAGE value="added store endpoint for Post controller, compressing to 128kbps, Tags, Factories and Seeders" />
+    <option name="LAST_COMMIT_MESSAGE" value="added store endpoint for Post controller, compressing to 128kbps, Tags, Factories and Seeders" />
   </component>
 </project>

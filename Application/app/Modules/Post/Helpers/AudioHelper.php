@@ -6,22 +6,90 @@ namespace App\Modules\Post\Helpers;
 
 use FFMpeg\FFMpeg;
 use FFMpeg\Format\Audio\Mp3;
+use FFMpeg\Format\Audio\Aac;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 
 class AudioHelper
 {
-    public static function compress(UploadedFile $file, int $bitrate = 128): string
+    private FFMpeg $ffmpeg;
+
+    public function __construct()
     {
-        $tempFilePath = tempnam(sys_get_temp_dir(), 'compressed_audio');
+        $this->ffmpeg = FFMpeg::create([
+            'ffmpeg.binaries'  => config('ffmpeg.ffmpeg_binary', '/usr/bin/ffmpeg'),
+            'ffprobe.binaries' => config('ffmpeg.ffprobe_binary', '/usr/bin/ffprobe'),
+            'timeout'          => 3600,
+            'ffmpeg.threads'   => 12,
+        ]);
+    }
 
-        $ffmpeg = FFMpeg::create();
-        $audio  = $ffmpeg->open($file->getPathname());
+    public function compress(UploadedFile $file, array $options = []): string
+    {
+        try {
+            $this->validateFile($file);
 
-        $format = new Mp3();
-        $format->setAudioKiloBitrate($bitrate);
+            $options = array_merge([
+                'bitrate'  => 128,
+                'format'   => 'mp3',
+                'channels' => 2,
+            ], $options);
 
-        $audio->save($format, $tempFilePath);
+            $tempFilePath = $this->createTempFile($options['format']);
+            $audio        = $this->ffmpeg->open($file->getPathname());
+            $format       = $this->getFormat($options);
 
-        return $tempFilePath;
+            $format->setAudioChannels($options['channels'])
+                ->setAudioKiloBitrate($options['bitrate']);
+
+            $audio->save($format, $tempFilePath);
+
+            if (!file_exists($tempFilePath) || !is_readable($tempFilePath)) {
+                throw new \DomainException('Failed to create compressed audio file');
+            }
+
+            return $tempFilePath;
+
+        } catch (\Exception $e) {
+            Log::error('FFmpeg compression failed', [
+                'error' => $e->getMessage(),
+                'file'  => $file->getClientOriginalName()
+            ]);
+            throw new \DomainException('Audio compression failed: ' . $e->getMessage());
+        }
+    }
+
+    private function validateFile(UploadedFile $file): void
+    {
+        $allowedMimes = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/aac', 'audio/m4a'];
+
+        if (!in_array($file->getMimeType(), $allowedMimes)) {
+            throw new \DomainException('Invalid file type. Allowed types: MP3, WAV, AAC, M4A');
+        }
+
+        if ($file->getSize() > 100 * 1024 * 1024) {
+            throw new \DomainException('File size too large. Maximum size: 100MB');
+        }
+    }
+
+    private function createTempFile(string $format): string
+    {
+        return tempnam(sys_get_temp_dir(), 'compressed_audio_') . '.' . $format;
+    }
+
+    private function getFormat(array $options)
+    {
+        return match ($options['format']) {
+            'mp3' => new Mp3(),
+            'aac' => new Aac(),
+            default => throw new \Exception('Unsupported output format'),
+        };
+    }
+
+    public function cleanup(string $filePath): void
+    {
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
     }
 }

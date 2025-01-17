@@ -9,6 +9,8 @@ use App\Modules\Post\Contracts\Services\PostService;
 use App\Modules\Post\Models\Post;
 use App\Modules\Post\Requests\PostsListRequest;
 use App\Modules\Post\Requests\StorePostRequest;
+use App\Modules\Post\Requests\UpdatePostRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 final class PostController extends Controller
@@ -30,5 +32,21 @@ final class PostController extends Controller
     public function store(StorePostRequest $request): Post
     {
         return $this->service->create($request->getDTO());
+    }
+
+    public function update(int $id, UpdatePostRequest $request): Post
+    {
+        return $this->service->update($id, $request->getDTO());
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $result = $this->service->delete($id);
+
+        return response()->json([
+            'success' => $result,
+            'data'    => [],
+            'message' => $result ? 'Post successfully deleted' : ''
+        ]);
     }
 }
