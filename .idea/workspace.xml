@@ -4,10 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03cd8de9-b84c-4815-a750-a58ff9c2cb39" name="Changes" comment="init + docker">
-      <change beforePath="$PROJECT_DIR$/.idea/laravel-idea.xml" beforeDir="false" />
+    <list default="true" id="03cd8de9-b84c-4815-a750-a58ff9c2cb39" name="Changes" comment="Post module created, but only index endpoint">
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Application/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Contracts/Services/PostService.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Contracts/Services/PostService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Controllers/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Models/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Models/Tag.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Models/Tag.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/app/Modules/Post/Services/PostService.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/Post/Services/PostService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/app/Modules/User/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/Modules/User/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/Application/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Application/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/database/factories/UserFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +27,9 @@
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/Application/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -255,7 +268,20 @@
       <path value="$PROJECT_DIR$/Application/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/Application/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/Application/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/Application/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/Application/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/Application/vendor/tymon/jwt-auth" />
+      <path value="$PROJECT_DIR$/Application/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/Application/vendor/spatie/temporary-directory" />
+      <path value="$PROJECT_DIR$/Application/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/Application/vendor/symfony/cache-contracts" />
+      <path value="$PROJECT_DIR$/Application/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/Application/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/Application/vendor/php-ffmpeg/php-ffmpeg" />
     </include_path>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -276,12 +302,20 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Application/resources/mpeg" />
+      <recent name="$PROJECT_DIR$/Application/app/Modules/User" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Application" />
     </key>
@@ -312,6 +346,8 @@
       <workItem from="1736969502913" duration="314000" />
       <workItem from="1736969901361" duration="3635000" />
       <workItem from="1737004002659" duration="1295000" />
+      <workItem from="1737048756289" duration="16488000" />
+      <workItem from="1737091339520" duration="4228000" />
     </task>
     <task id="LOCAL-00001" summary="init + docker">
       <option name="closed" value="true" />
@@ -321,7 +357,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736971614750</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="JWT Authentication, modular + clean architecture">
+      <option name="closed" value="true" />
+      <created>1737057817248</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1737057817249</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Post module created, but only index endpoint">
+      <option name="closed" value="true" />
+      <created>1737063792332</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1737063792332</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,6 +381,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init + docker" />
-    <option name="LAST_COMMIT_MESSAGE" value="init + docker" />
+    <MESSAGE value="JWT Authentication, modular + clean architecture" />
+    <MESSAGE value="Post module created, but only index endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="Post module created, but only index endpoint" />
   </component>
 </project>

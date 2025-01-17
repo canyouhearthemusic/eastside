@@ -25,13 +25,13 @@ Route::prefix('auth')
         Route::post('/refresh', [AuthController::class, 'refresh']);
     });
 
-Route::prefix('post')
+Route::prefix('posts')
     ->name('posts.')
     ->controller(PostController::class)
     ->group(function () {
         Route::get('/', [PostController::class, 'index']);
+        Route::post('/', [PostController::class, 'store']);
         Route::get('/{id}', [PostController::class, 'show']);
-        Route::post('/{id}', [PostController::class, 'store']);
         Route::put('/{id}', [PostController::class, 'update']);
         Route::delete('/{id}', [PostController::class, 'destroy']);
     });

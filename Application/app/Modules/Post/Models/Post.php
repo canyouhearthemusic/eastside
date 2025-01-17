@@ -30,6 +30,10 @@ final class Post extends Model
 {
     use SoftDeletes;
 
+    public const FOLDER_NAME = 'posts';
+
+    protected $with = ['user', 'tags'];
+
     protected $casts = [
         'status' => Status::class,
     ];
