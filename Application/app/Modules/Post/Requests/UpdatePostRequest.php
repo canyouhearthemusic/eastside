@@ -7,7 +7,48 @@ namespace App\Modules\Post\Requests;
 use App\Modules\Post\DTOs\UpdatePostDTO;
 use App\Modules\Post\Enums\Status;
 use Illuminate\Foundation\Http\FormRequest;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     description="Request for updating an existing post",
+ *     type="object",
+ *     required={"tagIds", "title", "description"},
+ *     @OA\Property(
+ *         property="statusId",
+ *         description="Status of the post (optional, valid values are from Status enum)",
+ *         type="integer",
+ *         example=Status::ACTIVE
+ *     ),
+ *     @OA\Property(
+ *         property="tagIds",
+ *         description="Array of tag IDs associated with the post",
+ *         type="array",
+ *         @OA\Items(
+ *             type="integer",
+ *             example=1
+ *         )
+ *     ),
+ *     @OA\Property(
+ *         property="title",
+ *         description="Title of the post",
+ *         type="string",
+ *         example="Updated Post Title"
+ *     ),
+ *     @OA\Property(
+ *         property="description",
+ *         description="Description of the post",
+ *         type="string",
+ *         example="This is an updated description of the post"
+ *     ),
+ *     @OA\Property(
+ *         property="audio",
+ *         description="Audio file associated with the post (optional)",
+ *         type="string",
+ *         format="binary"
+ *     )
+ * )
+ */
 class UpdatePostRequest extends FormRequest
 {
     /**

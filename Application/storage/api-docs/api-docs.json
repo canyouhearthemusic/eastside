@@ -1,0 +1,827 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Music library API",
+        "description": "Music library API",
+        "contact": {
+            "email": ""
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "/api"
+        }
+    ],
+    "paths": {
+        "/posts": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get all posts",
+                "description": "Retrieve a paginated list of posts",
+                "operationId": "37df61a9270e854331c6a07b18249ebc",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page number for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of posts per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort the posts by creation date",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "example": "asc"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Search for posts by title",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Post title"
+                        }
+                    },
+                    {
+                        "name": "statusIds",
+                        "in": "query",
+                        "description": "Filter posts by status IDs",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A paginated list of posts",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostsResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid parameters"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Create a new post",
+                "description": "Create a new post with the provided data",
+                "operationId": "25afbd7c7b17d2cdf00cfaa6a81caaa3",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Post successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    }
+                }
+            }
+        },
+        "/posts/{id}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get a specific post",
+                "description": "Retrieve a post by ID",
+                "operationId": "1a8c70f141c2b6970c674ebc75803145",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the post",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The post details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Post not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Update a specific post",
+                "description": "Update the details of an existing post by ID",
+                "operationId": "888e7c79fc34f35436070b398d69eef0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the post",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Post successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "404": {
+                        "description": "Post not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Delete a post",
+                "description": "Delete an existing post by ID",
+                "operationId": "c21e262aea961e11dddb173af509a408",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the post",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Post successfully deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Post not found"
+                    }
+                }
+            }
+        },
+        "/audio/play/{path}": {
+            "get": {
+                "tags": [
+                    "Audio"
+                ],
+                "summary": "Play an audio by pathname",
+                "description": "Play an audio by pathname",
+                "operationId": "acf101771b0bbe2a3b5400eedb0e550d",
+                "parameters": [
+                    {
+                        "name": "path",
+                        "in": "path",
+                        "description": "Path of the file(post audiofile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The audio file content",
+                        "content": {
+                            "audio/mpeg": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Audiofile not found"
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User Registration",
+                "description": "Registers a new user and returns an authentication token.",
+                "operationId": "fd59ff1416765361ff6bbca9b3baf117",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully registered and authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "accessToken": {
+                                            "description": "Bearer token",
+                                            "type": "string"
+                                        },
+                                        "tokenType": {
+                                            "description": "Bearer",
+                                            "type": "string"
+                                        },
+                                        "expiresIn": {
+                                            "description": "Token expiration time in seconds",
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid input"
+                                        },
+                                        "errors": {
+                                            "description": "List of validation errors",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User Login",
+                "description": "Logs in a user and returns an authentication token.",
+                "operationId": "c51119e52a1904e3a8a8540a32e01410",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "accessToken": {
+                                            "description": "Bearer token",
+                                            "type": "string"
+                                        },
+                                        "tokenType": {
+                                            "description": "Bearer",
+                                            "type": "string"
+                                        },
+                                        "expiresIn": {
+                                            "description": "Token expiration time in seconds",
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid credentials"
+                                        },
+                                        "errors": {
+                                            "description": "List of validation errors",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User Logout",
+                "description": "Logs out the user and invalidates the token.",
+                "operationId": "445cab07bc31c3f0827a276589608adc",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Refresh Token",
+                "description": "Refreshes the user's authentication token.",
+                "operationId": "67552f6b0c1c378636339c894b353f5c",
+                "responses": {
+                    "200": {
+                        "description": "Successfully refreshed token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "accessToken": {
+                                            "description": "Bearer token",
+                                            "type": "string"
+                                        },
+                                        "tokenType": {
+                                            "description": "Bearer",
+                                            "type": "string"
+                                        },
+                                        "expiresIn": {
+                                            "description": "Token expiration time in seconds",
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "description": "List of error details",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StatusResource": {
+                "properties": {
+                    "id": {
+                        "description": "ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "Status name",
+                        "type": "string",
+                        "example": "Active"
+                    }
+                },
+                "type": "string",
+                "enum": [
+                    "ACTIVE",
+                    "INACTIVE"
+                ]
+            },
+            "StorePostRequest": {
+                "description": "Request for storing a new post",
+                "required": [
+                    "tagIds",
+                    "title",
+                    "description"
+                ],
+                "properties": {
+                    "tagIds": {
+                        "description": "Array of tag IDs associated with the post",
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    "title": {
+                        "description": "Title of the post",
+                        "type": "string",
+                        "example": "New Post Title"
+                    },
+                    "description": {
+                        "description": "Description of the post",
+                        "type": "string",
+                        "example": "This is a description of the post"
+                    },
+                    "audio": {
+                        "description": "Audio file associated with the post (optional)",
+                        "type": "string",
+                        "format": "binary"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePostRequest": {
+                "description": "Request for updating an existing post",
+                "required": [
+                    "tagIds",
+                    "title",
+                    "description"
+                ],
+                "properties": {
+                    "statusId": {
+                        "description": "Status of the post (optional, valid values are from Status enum)",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "tagIds": {
+                        "description": "Array of tag IDs associated with the post",
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    "title": {
+                        "description": "Title of the post",
+                        "type": "string",
+                        "example": "Updated Post Title"
+                    },
+                    "description": {
+                        "description": "Description of the post",
+                        "type": "string",
+                        "example": "This is an updated description of the post"
+                    },
+                    "audio": {
+                        "description": "Audio file associated with the post (optional)",
+                        "type": "string",
+                        "format": "binary"
+                    }
+                },
+                "type": "object"
+            },
+            "PostResource": {
+                "description": "Post resource representation",
+                "required": [
+                    "id",
+                    "title",
+                    "description",
+                    "status",
+                    "audio",
+                    "createdAt",
+                    "updatedAt"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID of the post",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "description": "Title of the post",
+                        "type": "string",
+                        "example": "My Post Title"
+                    },
+                    "description": {
+                        "description": "Description of the post",
+                        "type": "string",
+                        "example": "This is a detailed description of the post."
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/UserResource"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/StatusResource"
+                    },
+                    "tags": {
+                        "description": "Tags associated with the post",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TagResource"
+                        }
+                    },
+                    "audio": {
+                        "description": "Audio file details",
+                        "properties": {
+                            "path": {
+                                "description": "Path to the audio file",
+                                "type": "string",
+                                "example": "/storage/posts/audiofile.mp3"
+                            },
+                            "originalName": {
+                                "description": "Original file name",
+                                "type": "string",
+                                "example": "audiofile.mp3"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "createdAt": {
+                        "description": "Creation date of the post",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-01-17"
+                    },
+                    "updatedAt": {
+                        "description": "Last update date of the post",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-01-17"
+                    }
+                },
+                "type": "object"
+            },
+            "PostsResource": {
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PostResource"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "TagResource": {
+                "description": "Tag resource representation",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID of the tag",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the tag",
+                        "type": "string",
+                        "example": "Technology"
+                    }
+                },
+                "type": "object"
+            },
+            "TagsResource": {
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TagResource"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "LoginUserRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "description": "The email address of the user.",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "user@example.com"
+                    },
+                    "password": {
+                        "description": "The password of the user. Must be at least 8 characters.",
+                        "type": "string",
+                        "minLength": 8
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterUserRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "The name of the user.",
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "email": {
+                        "description": "The email address of the user.",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "user@example.com"
+                    },
+                    "password": {
+                        "description": "The password of the user. Must be at least 8 characters and confirmed.",
+                        "type": "string",
+                        "minLength": 8
+                    },
+                    "password_confirmation": {
+                        "description": "The confirmation of the user's password.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UserResource": {
+                "description": "User resource representation",
+                "required": [
+                    "id",
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID of the user",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the user",
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "description": "Email address of the user",
+                        "type": "string",
+                        "format": "email",
+                        "example": "john.doe@example.com"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "apiKey": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Posts",
+            "description": "Posts"
+        },
+        {
+            "name": "Audio",
+            "description": "Audio"
+        },
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        }
+    ]
+}

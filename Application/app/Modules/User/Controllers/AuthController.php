@@ -4,11 +4,12 @@ namespace App\Modules\User\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\User\Contracts\Services\AuthService;
+use App\Modules\User\Contracts\Swagger\AuthSwagger;
 use App\Modules\User\Requests\LoginUserRequest;
 use App\Modules\User\Requests\RegisterUserRequest;
 use Illuminate\Http\JsonResponse;
 
-final class AuthController extends Controller
+final class AuthController extends Controller implements AuthSwagger
 {
     public function __construct(private readonly AuthService $service)
     {

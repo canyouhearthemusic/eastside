@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Modules\Post\Services;
 
+use App\Helpers\AudioHelper;
 use App\Modules\Post\Contracts\Services\PostService as PostServiceContract;
 use App\Modules\Post\DTOs\PostsListDTO;
 use App\Modules\Post\DTOs\StorePostDTO;
 use App\Modules\Post\DTOs\UpdatePostDTO;
 use App\Modules\Post\Enums\Status;
-use App\Modules\Post\Helpers\AudioHelper;
 use App\Modules\Post\Models\Post;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,6 +18,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 final readonly class PostService implements PostServiceContract
 {
@@ -65,13 +66,17 @@ final readonly class PostService implements PostServiceContract
     public function update(int $id, UpdatePostDTO $dto): Post
     {
         return DB::transaction(function () use ($id, $dto) {
-            $storedPath = $this->handleAudioUpload($dto->audio);
-
             /** @var Post $post */
             $post = Post::query()->findOrFail($id);
+            if ($post->user_id !== (int)Auth::id()) {
+                throw new AccessDeniedHttpException('Forbidden');
+            }
+
+            $storedPath = $this->handleAudioUpload($dto->audio);
+
             $post->update([
-                'title'              => $dto->title ?: $post->title,
-                'description'        => $dto->description ?: $post->description,
+                'title'              => $dto->title,
+                'description'        => $dto->description,
                 'status'             => $dto->status ?: $post->status,
                 'file_path'          => $storedPath ?: $post->file_path,
                 'file_original_name' => $dto->audio?->getClientOriginalName() ?: $post->file_original_name,
@@ -85,7 +90,12 @@ final readonly class PostService implements PostServiceContract
 
     public function delete(int $id): bool
     {
+        /** @var Post $post */
         $post = Post::query()->findOrFail($id);
+        if ($post->user_id !== (int)Auth::id()) {
+            throw new AccessDeniedHttpException('Forbidden');
+        }
+
         return $post->delete();
     }
 

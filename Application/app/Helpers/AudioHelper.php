@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Post\Helpers;
+namespace App\Helpers;
 
 use FFMpeg\FFMpeg;
-use FFMpeg\Format\Audio\Mp3;
 use FFMpeg\Format\Audio\Aac;
+use FFMpeg\Format\Audio\Mp3;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Log;
 
 class AudioHelper
 {
@@ -51,10 +50,6 @@ class AudioHelper
             return $tempFilePath;
 
         } catch (\Exception $e) {
-            Log::error('FFmpeg compression failed', [
-                'error' => $e->getMessage(),
-                'file'  => $file->getClientOriginalName()
-            ]);
             throw new \DomainException('Audio compression failed: ' . $e->getMessage());
         }
     }

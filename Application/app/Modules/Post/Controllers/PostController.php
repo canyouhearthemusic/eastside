@@ -5,48 +5,54 @@ declare(strict_types=1);
 namespace App\Modules\Post\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MessagesResource;
 use App\Modules\Post\Contracts\Services\PostService;
-use App\Modules\Post\Models\Post;
+use App\Modules\Post\Contracts\Swagger\PostSwagger;
 use App\Modules\Post\Requests\PostsListRequest;
 use App\Modules\Post\Requests\StorePostRequest;
 use App\Modules\Post\Requests\UpdatePostRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Modules\Post\Resources\PostResource;
+use App\Modules\Post\Resources\PostsResource;
 
-final class PostController extends Controller
+final class PostController extends Controller implements PostSwagger
 {
     public function __construct(private readonly PostService $service)
     {
     }
 
-    public function index(PostsListRequest $request): LengthAwarePaginator
+    public function index(PostsListRequest $request): PostsResource
     {
-        return $this->service->findAll($request->getDTO());
+        return new PostsResource(
+            $this->service->findAll($request->getDTO())
+        );
     }
 
-    public function show(int $id): Post
+    public function show(int $id): PostResource
     {
-        return $this->service->findById($id);
+        return new PostResource(
+            $this->service->findById($id)
+        );
     }
 
-    public function store(StorePostRequest $request): Post
+    public function store(StorePostRequest $request): PostResource
     {
-        return $this->service->create($request->getDTO());
+        return new PostResource(
+            $this->service->create($request->getDTO())
+        );
     }
 
-    public function update(int $id, UpdatePostRequest $request): Post
+    public function update(int $id, UpdatePostRequest $request): PostResource
     {
-        return $this->service->update($id, $request->getDTO());
+        return new PostResource(
+            $this->service->update($id, $request->getDTO())
+        );
     }
 
-    public function destroy(int $id): JsonResponse
+    public function destroy(int $id): MessagesResource
     {
-        $result = $this->service->delete($id);
+        $this->service->delete($id);
 
-        return response()->json([
-            'success' => $result,
-            'data'    => [],
-            'message' => $result ? 'Post successfully deleted' : ''
-        ]);
+        return (new MessagesResource(null))
+            ->setMessage('Post deleted');
     }
 }

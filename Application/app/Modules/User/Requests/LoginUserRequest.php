@@ -6,7 +6,28 @@ namespace App\Modules\User\Requests;
 
 use App\Modules\User\DTOs\LoginUserDTO;
 use Illuminate\Foundation\Http\FormRequest;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     schema="LoginUserRequest",
+ *     type="object",
+ *     required={"email", "password"},
+ *     @OA\Property(
+ *         property="email",
+ *         type="string",
+ *         description="The email address of the user.",
+ *         maxLength=255,
+ *         example="user@example.com"
+ *     ),
+ *     @OA\Property(
+ *         property="password",
+ *         type="string",
+ *         description="The password of the user. Must be at least 8 characters.",
+ *         minLength=8
+ *     )
+ * )
+ */
 final class LoginUserRequest extends FormRequest
 {
     /**

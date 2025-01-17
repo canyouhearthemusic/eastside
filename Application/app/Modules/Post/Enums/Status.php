@@ -4,6 +4,25 @@ declare(strict_types=1);
 
 namespace App\Modules\Post\Enums;
 
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema(
+ *     schema="StatusResource",
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         description="ID",
+ *         example="1"
+ *     ),
+ *     @OA\Property(
+ *         property="name",
+ *         type="string",
+ *         description="Status name",
+ *         example="Active"
+ *     )
+ * )
+ */
 enum Status: int
 {
     case ACTIVE   = 1;

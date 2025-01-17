@@ -1,7 +1,9 @@
 <?php
 
+use App\Modules\Post\Controllers\AudioController;
 use App\Modules\Post\Controllers\PostController;
 use App\Modules\User\Controllers\AuthController;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,3 +37,6 @@ Route::prefix('posts')
         Route::delete('/{id}', [PostController::class, 'destroy']);
     });
 
+Route::get('/audio/play/{path}', [AudioController::class, 'play'])
+    ->where('path', '.*')
+    ->name('audio.play');
