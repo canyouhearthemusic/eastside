@@ -93,12 +93,9 @@ class PostResource extends BaseJsonResource
             'title'       => $this->resource->title,
             'description' => $this->resource->description,
             'user'        => new UserResource($this->resource->user),
-            'status'      => $this->resource->status->label(),
+            'status'      => $this->resource->status?->label(),
             'tags'        => TagResource::collection($this->resource->tags),
-            'audio'       => [
-                'path'         => route('audio.play', $this->resource->file_path),
-                'originalName' => $this->resource->file_original_name
-            ],
+            'audio'       => new AudioResource($this->resource),
             'createdAt'   => $this->resource->created_at->toDateTimeString(),
             'updatedAt'   => $this->resource->updated_at->toDateTimeString(),
         ];
