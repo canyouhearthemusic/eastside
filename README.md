@@ -2,6 +2,14 @@
 
 ## Функционал
 
+
+https://github.com/user-attachments/assets/7d60b85b-ec3f-4f14-b288-e669726a8e67
+
+
+
+https://github.com/user-attachments/assets/46748b4e-d1b2-4534-9eba-9aec6d327089
+
+
 - **Аутентификация пользователей**: По email и паролю.
 - **Управление постами**:
     - Создание, обновление, удаление постов.
@@ -56,5 +64,8 @@ make all
 <img width="1512" alt="image" src="https://github.com/user-attachments/assets/55976c02-a8d8-4d06-8bbe-9277c3718574" />
 
 Реализованы все эндпоинты, для задания. Вплоть до проигрыша `audio/mpeg` файлов.
+
+## **ВАЖНО!**
+В папке `Application/resources/mpeg` есть аудиофайл `audio.mp3`. Можете использовать его в качестве тестового файла при создании/обновлении Поста.
 
 Для обратной связи [TG](https://t.me/al1bekkkk)
