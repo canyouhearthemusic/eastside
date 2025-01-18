@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "b076239f-03bf-4952-b6b5-e97b4c589253",
+		"name": "Eastside",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30415822",
+		"_collection_link": "https://witme4.postman.co/workspace/Team-Workspace~4131e00c-c16f-4f4f-8950-a39f67f853f5/collection/30415822-b076239f-03bf-4952-b6b5-e97b4c589253?action=share&source=collection_link&creator=30415822"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Admin\",\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"zxcvbn123\",\n    \"password_confirmation\": \"zxcvbn123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/api/auth/register",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"zxcvbn123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/auth/refresh",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tagIds[]",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "sigma",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "sigma",
+							"type": "text"
+						},
+						{
+							"key": "audio",
+							"type": "file",
+							"src": "/Users/r/Projects/eastside/Application/resources/mpeg/audio.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/posts",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tagIds[]",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "sigma",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "sigma",
+							"type": "text"
+						},
+						{
+							"key": "audio",
+							"type": "file",
+							"src": "/Users/r/Projects/eastside/Application/resources/mpeg/audio.mp3"
+						},
+						{
+							"key": "tagIds[]",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "statusId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/posts/8",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"posts",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/posts",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get post by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/posts/8",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"posts",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Post",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/posts/6",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"posts",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Play Audio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/audio/play/posts/cfrUPXiMZIsuziCQqiKwQW345so2rSCaCmdBFhKE.mp3",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"audio",
+						"play",
+						"posts",
+						"cfrUPXiMZIsuziCQqiKwQW345so2rSCaCmdBFhKE.mp3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzM3MTU0OTEyLCJleHAiOjE3MzcxNTg1MTIsIm5iZiI6MTczNzE1NDkxMiwianRpIjoiaHoxeFBnbE5CSmZ4akVzNiIsInN1YiI6IjMiLCJwcnYiOiI0YTZlMjUyZDQ5Y2MzNWY5YTZkMjg5N2ZkZTRmOTMxNDZlN2M4MDJjIn0.0U-pLmVGv1rr8fcZXObVyJEx3SzYK8YNjk-lcMknUv0",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
